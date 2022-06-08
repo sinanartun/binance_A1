@@ -9,4 +9,5 @@ sudo yum install git -y
 git clone https://github.com/sinanartun/binance_A1.git
 cd binance_A1 || exit
 pip3.8 install -r requirements.txt
+python3.8 main.py
 
