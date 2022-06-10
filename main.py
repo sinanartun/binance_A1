@@ -16,7 +16,7 @@ session = Session(aws_access_key_id=AccessKeyId,
                   aws_secret_access_key=SecretAccessKey)
 s3 = session.resource('s3')
 
-# bucket = s3.Bucket(bucket_name)
+bucket = s3.Bucket(bucket_name)
 
 
 def upload_file(local_data_file_path, remote_data_file_path):
