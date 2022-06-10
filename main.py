@@ -11,6 +11,9 @@ from boto3.session import Session
 AccessKeyId = os.getenv('AccessKeyId')
 SecretAccessKey = os.getenv('SecretAccessKey')
 bucket_name = os.getenv('bucket_name')
+print(AccessKeyId)
+print(SecretAccessKey)
+print(bucket_name)
 
 session = Session(aws_access_key_id=AccessKeyId,
                   aws_secret_access_key=SecretAccessKey)
