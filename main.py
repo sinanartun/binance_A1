@@ -1,26 +1,27 @@
 import asyncio
 import time
 import datetime
+import os
 
 from binance import AsyncClient, BinanceSocketManager
 
 from boto3.session import Session
 
 
-# ACCESS_KEY = ''
-# SECRET_KEY = ''
-# bucket_name = ''
-#
-# session = Session(aws_access_key_id=ACCESS_KEY,
-#                   aws_secret_access_key=SECRET_KEY)
-# s3 = session.resource('s3')
-#
+AccessKeyId = os.getenv('AccessKeyId')
+SecretAccessKey = os.getenv('SecretAccessKey')
+bucket_name = os.getenv('bucket_name')
+
+session = Session(aws_access_key_id=AccessKeyId,
+                  aws_secret_access_key=SecretAccessKey)
+s3 = session.resource('s3')
+
 # bucket = s3.Bucket(bucket_name)
 
 
 def upload_file(local_data_file_path, remote_data_file_path):
     print(local_data_file_path, remote_data_file_path)
-    # s3.meta.client.upload_file(Filename=local_data_file_path, Bucket=bucket_name, Key=remote_data_file_path)
+    s3.meta.client.upload_file(Filename=local_data_file_path, Bucket=bucket_name, Key=remote_data_file_path)
 
 
 async def main():
@@ -43,7 +44,7 @@ async def main():
                 # Eğer mesajın içindeki Unix dakikası active_file_time'a eşit değil ise 1dk'lık biriktirme süresi,
                 # dolmuş ve biriktirilen datanın bucket'a yüklenmesi gerekli.
                 local_data_file_path = './data/' + str(active_file_time * 60) + '.tsv'
-                remote_data_file_path = 'data/' + str(active_file_time * 60) + '.tsv'
+                remote_data_file_path = 'data_1_min/' + str(active_file_time * 60) + '.tsv'
 
                 upload_file(local_data_file_path, remote_data_file_path)
                 # Bir dakikalık datası dolmuş olan local_data_file'ı, Bucket'a yüklüyoruz.
