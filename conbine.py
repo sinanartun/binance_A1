@@ -1,6 +1,6 @@
 import glob
 
-read_files = glob.glob("./data/*.tsv")
+read_files = glob.glob("data_old/*.tsv")
 
 with open("./out/result.tsv", "wb") as outfile:
     for f in read_files:

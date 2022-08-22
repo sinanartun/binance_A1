@@ -2,20 +2,23 @@ import asyncio
 import time
 import datetime
 import os
+import json
 
 from binance import AsyncClient, BinanceSocketManager
 
 from boto3.session import Session
 
 
-AccessKeyId = os.getenv('AccessKeyId')
-SecretAccessKey = os.getenv('SecretAccessKey')
-bucket_name = os.getenv('bucket_name')
-region = os.getenv('region')
-
+AccessKeyId = ""
+SecretAccessKey = "+R8/r6"
+bucket_name = ""
+print(AccessKeyId)
+print(SecretAccessKey)
+print(bucket_name)
 
 session = Session(aws_access_key_id=AccessKeyId,
-                  aws_secret_access_key=SecretAccessKey)
+                  aws_secret_access_key=SecretAccessKey,
+                  region_name="af-south-1")
 s3 = session.resource('s3')
 
 bucket = s3.Bucket(bucket_name)
@@ -23,7 +26,7 @@ bucket = s3.Bucket(bucket_name)
 
 def upload_file(local_data_file_path, remote_data_file_path):
     print(local_data_file_path, remote_data_file_path)
-    s3.meta.client.upload_file(Filename=local_data_file_path, Bucket=bucket_name, Key=remote_data_file_path)
+    # s3.meta.client.upload_file(Filename=local_data_file_path, Bucket=bucket_name, Key=remote_data_file_path)
 
 
 async def main():
@@ -38,6 +41,7 @@ async def main():
     async with trade_socket as tscm:
         while True:
             res = await tscm.recv()
+            print(json.dumps(res, indent=0, sort_keys=True, default=str))
             new_file_time = int(res['T'] / (1000 * 60))
             # Gelen datanın içindeki unixtime'ı (milisecond cinsinden) dakikaya çeviriyoruz.
 
