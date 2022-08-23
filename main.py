@@ -15,7 +15,8 @@ region = os.getenv('region')
 
 
 session = Session(aws_access_key_id=AccessKeyId,
-                  aws_secret_access_key=SecretAccessKey)
+                  aws_secret_access_key=SecretAccessKey,
+                  region_name=region)
 s3 = session.resource('s3')
 
 bucket = s3.Bucket(bucket_name)
@@ -23,7 +24,7 @@ bucket = s3.Bucket(bucket_name)
 
 def upload_file(local_data_file_path, remote_data_file_path):
     print(local_data_file_path, remote_data_file_path)
-    s3.meta.client.upload_file(Filename=local_data_file_path, Bucket=bucket_name, Key=remote_data_file_path)
+    # s3.meta.client.upload_file(Filename=local_data_file_path, Bucket=bucket_name, Key=remote_data_file_path)
 
 
 async def main():
@@ -40,7 +41,7 @@ async def main():
             res = await tscm.recv()
             new_file_time = int(res['T'] / (1000 * 60))
             # Gelen datanın içindeki unixtime'ı (milisecond cinsinden) dakikaya çeviriyoruz.
-
+            print(res)
             if new_file_time != active_file_time:
                 f.close()
                 # Eğer mesajın içindeki Unix dakikası active_file_time'a eşit değil ise 1dk'lık biriktirme süresi,
@@ -67,7 +68,6 @@ async def main():
             if res['m']: # Satın almış ise 1, satış yaptı ise 0.
                 maker = '1'
 
-            # line = str(res['t']) + '\t' + str(res['s']) + '\t' + '{:.2f}'.format(round(float(res['p']), 2)) + '\t' + str(res['q'])[0:-3] + '\t' + str(timestamp) + '\t' + str(maker)
 
             line = str(res['t']) + '\t'
             line+= str(res['s']) + '\t'
