@@ -1,1 +1,1 @@
-LOAD DATA FROM S3 's3://atom-milan/1661193600.tsv' INTO TABLE firstdb.BTCUSDT FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n' (bid, parameter, price, quantity, time, maker);
+LOAD DATA FROM S3 's3://atom-milan/data_1_min/1661193600.tsv' INTO TABLE firstdb.BTCUSDT FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n' (bid, parameter, price, quantity, time, maker);
