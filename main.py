@@ -24,7 +24,7 @@ bucket = s3.Bucket(bucket_name)
 
 def upload_file(local_data_file_path, remote_data_file_path):
     print(local_data_file_path, remote_data_file_path)
-    # s3.meta.client.upload_file(Filename=local_data_file_path, Bucket=bucket_name, Key=remote_data_file_path)
+    s3.meta.client.upload_file(Filename=local_data_file_path, Bucket=bucket_name, Key=remote_data_file_path)
 
 
 async def main():
