@@ -7,3 +7,4 @@ create table BTCUSDT
     time      datetime    null,
     maker     tinyint     null
 );
+
