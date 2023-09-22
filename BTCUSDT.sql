@@ -1,6 +1,6 @@
 create table BTCUSDT
 (
-    bid       int         null,
+    bid       bigint         null,
     parameter char(7)     null,
     price     float(7, 2) null,
     quantity  float(7, 5) null,
